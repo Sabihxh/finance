@@ -1,0 +1,1 @@
+Implementation of trading strategies
