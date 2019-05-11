@@ -1,3 +1,5 @@
+## Trading Strategies
+
 This project aims to implement trading strategies and test them on FTSE 350 stocks. 
 
 The jupyter notebook **strategies.ipynb** contains the mock up of trading strategies. 
