@@ -1,4 +1,4 @@
-Implementation of trading strategies.
+### Implementation of trading strategies.
 
 To do:
 	Write tests
