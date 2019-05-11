@@ -1,6 +1,6 @@
 ## Trading Strategies
 
-This project aims to find the most profitable mid-term trading strategies for FTSE 350 stocks. The best trading strategies would be the ones that can give a shortlist (1-10) of best stocks to invest in and also give information on when to close the trade. The trading strategy could consist of several trading stratgies which work together to shortlist the stocks.
+This project aims to find the most profitable mid-term trading strategies for FTSE 350 stocks. The best trading strategies would be the ones that can shortlist (1-10) the best stocks to invest in and also give information on when to close the trade. The trading strategy could consist of several trading stratgies which work together to shortlist the stocks.
 
 The jupyter notebook `strategies.ipynb` contains the mock up of trading strategies. 
 
