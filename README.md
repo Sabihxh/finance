@@ -1,6 +1,8 @@
-  The jupyter notebook contains the mock up of trading strategies.
+This project aims to implement trading strategies and test them on FTSE 350 stocks. 
 
-  The data_stocks directory contains data for all FTSE 350 companies starting from 2014-01-01.
+The jupyter notebook **strategies.ipynb** contains the mock up of trading strategies. 
+
+The data_stocks directory contains data for all FTSE 350 companies starting from 2014-01-01.
 
 **To do:**
 - Move trading strategies from notebook to .py module
