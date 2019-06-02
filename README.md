@@ -1,6 +1,6 @@
 ## Trading Strategies
 
-This project aims to find an algorithm that can shortlist the best companies to invest in on FTSE 350 index. The algorithm would consist of several mid to long term trading strategies which work together to shortlist the stocks.
+This project aims to find an algorithm that can shortlist the best companies to invest in on FTSE 350 index at any given day. The algorithm would consist of several mid to long term trading strategies which work together to shortlist the stocks.
 
 The jupyter notebook `strategies.ipynb` contains the mock up of trading strategies. 
 
