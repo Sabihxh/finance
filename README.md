@@ -1,10 +1,12 @@
-## Trading Strategies
-
+# Tridex
 This project aims to find an algorithm that can shortlist the best companies to invest in on FTSE 350 index at any given day. The algorithm would consist of several mid to long term trading strategies which work together to shortlist the stocks.
 
 The jupyter notebook `strategies.ipynb` contains the mock up of trading strategies. 
 
 The `data_stocks` directory contains data for all FTSE 350 companies starting from 2014-01-01.
+
+## Trading Strategies
+In progress
 
 ### To do:
 - Use google storage instead of csv files
