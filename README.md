@@ -5,8 +5,8 @@ The jupyter notebook `strategies.ipynb` contains the mock up of trading strategi
 
 The `data_stocks` directory contains data for all FTSE 350 companies starting from 2014-01-01.
 
-## Trading Strategies
-In progress
+### Trading Strategies
+In progress...
 
 ### To do:
 - Use google storage instead of csv files
