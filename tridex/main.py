@@ -35,8 +35,8 @@ def yahoo_symbols(fp):
 	return sorted(result)	
 
 
-ftse100_symbols = yahoo_symbols('./data_symbols/ftse100_symbols.txt')
-ftse250_symbols = yahoo_symbols('./data_symbols/ftse250_symbols.txt')
+ftse100_symbols = yahoo_symbols('../data/symbols/ftse100_symbols.txt')
+ftse250_symbols = yahoo_symbols('../data/symbols/ftse250_symbols.txt')
 
 
 def market_index(symbol):
@@ -62,9 +62,15 @@ def download_data(symbols):
 	"""
 	Time ~80sec
 	Note: This function will download all data and replace the existing csv files.
+	
+	Parameters:
+		symbols (list): List of strings where each string is a 
+			yahoo stock symbol e.g. ['BARC.L', 'HSBA.L']
+
 	"""
+	
 	# Parameters for DataReader
-	output_dir = './data_stocks/{}/'
+	output_dir = '../data/stocks/{}/'
 	total_symbols = len(symbols)
 	
 	for i, symbol in enumerate(symbols):
@@ -123,7 +129,7 @@ def update_data(market='all'):
 		update_dirs = [market]
 
 	for _dir in update_dirs:
-		dir_path = './data_stocks/{}'.format(_dir)
+		dir_path = '../data/stocks/{}'.format(_dir)
 		filepaths = ['{}/{}'.format(dir_path, x) for x in os.listdir(dir_path)]
 		total = len(filepaths)
 
