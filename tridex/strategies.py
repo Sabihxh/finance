@@ -2,6 +2,9 @@ import os
 import numpy as np
 import pandas as pd
 
+from download_data import download_data
+from utils import index_symbol_map, yahoo_symbols
+
 
 """
 #### Largest gap between long term moving average and very short term moving average
@@ -25,7 +28,7 @@ Example:
 
 """
 
-def moving_average_diff(df, days_1=5, days_2=200):
+def percentage_difference(df, days_1=5, days_2=200):
 	"""
 	Takes dataframe with 'Close' column	
 	(close price of stock) and returns the 
@@ -48,39 +51,62 @@ def moving_average_diff(df, days_1=5, days_2=200):
 
 
 # test_df = pd.DataFrame({'Close': [3,2,2,2,2]})
-# print(moving_average_diff(test_df, days_1=2, days_2=5))
+# print(percentage_difference(test_df, days_1=2, days_2=5))
 
 
-def highest_moving_average_diff(symbols):
+def highest_percentage_difference(symbols):
 	"""
-	Takes stock symbols and uses moving_average_diff
+	Takes stock symbols and uses percentage_difference
 	function to rank the stocks.
 
 	Returns dataframe ranked in descending order of
 	percentage difference.
 
 	"""
-	
-	return
 	result = pd.DataFrame()
-	for symbol, df in get_dfs(stocks_csv_files).items():
-		mean_200, mean_5 = df.iloc[-200:]['Close'].mean(), df.iloc[-5:]['Close'].mean()
-		means_diff_percent = ((mean_200 - mean_5) / mean_200) * 100
-		
-		# Skip the stocks whose mean percentage diference is negative
-		if means_diff_percent < 0:
+	base_data_dir = '../data/stocks/'
+	index_map = index_symbol_map()
+
+	for symbol in symbols:
+		print(symbol)
+		market_index = index_map.get(symbol, [''])[0]
+		if not market_index:
+			print('Warning: {} does not have a market...')
 			continue
+
+		fp = os.path.join(base_data_dir, market_index, symbol + '.csv')
+		if not os.path.exists(fp):
+			download_data([symbol])
+
+		df = pd.read_csv(fp)
+		
+		means_diff_percent = percentage_difference(df, days_1=5, days_2=200)
 			
-		df = df.iloc[-1:].copy()
+		df = df.iloc[-1:]
 		df['symbol'] = symbol
 		df['means_diff_percent'] = means_diff_percent
 		result = pd.concat([result, df])
 	
-	result = result.sort_values(by='means_diff_percent')
+	result = result.sort_values(by='means_diff_percent', ascending=False)
 	return result
 
 
-highest_moving_average_diff(['BARC.L'])
+# highest_percentage_difference(['BARC.L', 'SPX.L', 'SVS.L', 'YOU.L'])
+
+ftse100_symbols = yahoo_symbols('../data/symbols/FTSE 100.txt')
+ftse250_symbols = yahoo_symbols('../data/symbols/FTSE 250.txt')
+
+highest_percentage_difference(ftse100_symbols).to_excel('../data/aggregated/FTSE100_report_08June2019.xlsx')
+highest_percentage_difference(ftse250_symbols).to_excel('../data/aggregated/FTSE250_report_08June2019.xlsx')
+
+
+
+
+
+
+
+
+
 
 
 

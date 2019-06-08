@@ -4,8 +4,8 @@ import os
 import pandas as pd
 from pandas_datareader import DataReader
 
-from globals import index_url_suffix
-from utils import lse_to_yahoo, yahoo_symbols, extract_symbol
+
+from utils import yahoo_symbols, extract_symbol, index_symbol_map
 
 
 # Global parameters for DataReader - change if yahoo breaks again
@@ -17,19 +17,6 @@ CURRENT_DATE = datetime.now().strptime
 
 ftse100_symbols = yahoo_symbols('../data/symbols/FTSE 100.txt')
 ftse250_symbols = yahoo_symbols('../data/symbols/FTSE 250.txt')
-
-
-def create_index_symbol_map():
-	result = {}
-	for index in index_url_suffix.keys():
-		index_fp = os.path.join('../data/symbols/', index + '.txt')
-		with open(index_fp, 'r') as f:
-			for symbol in f.readlines():
-				symbol = lse_to_yahoo(symbol.strip())
-				if symbol not in result:
-					result[symbol] = []
-				result[symbol].append(index)
-	return result
 
 
 def download(symbol, output_fp):
@@ -53,10 +40,10 @@ def download_data(symbols):
 	# Parameters for DataReader
 	base_output_dir = '../data/stocks/{}/'
 	total_symbols = len(symbols)
-	index_map = create_index_symbol_map()
+	index_map = index_symbol_map()
 
 	for i, symbol in enumerate(symbols):
-		print('{}/{} >>> {}'.format(i+1, total_symbols, symbol))
+		print('Downloading: {}/{} >>> {}'.format(i+1, total_symbols, symbol))
 
 		market = index_map.get(symbol, [''])[0]
 		if not market:
