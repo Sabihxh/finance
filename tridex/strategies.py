@@ -1,4 +1,6 @@
 import os
+from datetime import datetime
+
 import numpy as np
 import pandas as pd
 
@@ -63,12 +65,12 @@ def highest_percentage_difference(symbols):
 	percentage difference.
 
 	"""
+	print('Strategy: Highest Percentage Difference')
 	result = pd.DataFrame()
 	base_data_dir = '../data/stocks/'
 	index_map = index_symbol_map()
 
 	for symbol in symbols:
-		print(symbol)
 		market_index = index_map.get(symbol, [''])[0]
 		if not market_index:
 			print('Warning: {} does not have a market...')
@@ -91,19 +93,18 @@ def highest_percentage_difference(symbols):
 	return result
 
 
-# highest_percentage_difference(['BARC.L', 'SPX.L', 'SVS.L', 'YOU.L'])
+def export_report(strategy_function):
+	date_now = datetime.now().strftime('%Y-%m-%d')
 
-ftse100_symbols = yahoo_symbols('../data/symbols/FTSE 100.txt')
-ftse250_symbols = yahoo_symbols('../data/symbols/FTSE 250.txt')
+	ftse100_symbols = yahoo_symbols('../data/symbols/FTSE 100.txt')
+	strategy_function(ftse100_symbols).to_excel('../data/aggregated/FTSE100_report_{}.xlsx'.format(date_now))
 
-highest_percentage_difference(ftse100_symbols).to_excel('../data/aggregated/FTSE100_report_08June2019.xlsx')
-highest_percentage_difference(ftse250_symbols).to_excel('../data/aggregated/FTSE250_report_08June2019.xlsx')
-
-
-
+	ftse250_symbols = yahoo_symbols('../data/symbols/FTSE 250.txt')
+	strategy_function(ftse250_symbols).to_excel('../data/aggregated/FTSE250_report_{}.xlsx'.format(date_now))
 
 
-
+if __name__ == '__main__':
+	export_report(highest_percentage_difference)
 
 
 
