@@ -19,5 +19,5 @@ See tridex/strategies.ipynb
 - Write tests
 
 
-### Reserach
+### Research:
 - How long does it take on average for long term (~200 days) and short term (50 days) moving averages to crossover. Find the average using all stocks in FTSE 350 over the entire history. 
