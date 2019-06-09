@@ -1,5 +1,7 @@
 import os
 
+import pandas as pd
+
 from globals import index_url_suffix
 
 
@@ -51,8 +53,13 @@ def index_symbol_map():
 
 
 
-
-
+def merge_company_names(df):
+	"""
+	Takes a dataframe with column name 'symbol' (company stock symbols)
+	and adds a new column 'company' (company name).
+	"""
+	companies_df = pd.read_csv('../data/symbols/lse_codes_companies.csv', index_col='code')
+	return pd.merge(df, companies_df, left_on='symbol', right_index=True, how='left')
 
 
 

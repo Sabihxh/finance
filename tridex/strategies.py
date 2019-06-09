@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 
 from download_data import download_data
-from utils import index_symbol_map, yahoo_symbols
+from utils import index_symbol_map, yahoo_symbols, merge_company_names
 
 
 """
@@ -49,7 +49,7 @@ def percentage_difference(df, days_1=5, days_2=200):
 		days_2, days_1 = days_1, days_2
 
 	mean_1, mean_2 = df.iloc[-days_1:]['Close'].mean(), df.iloc[-days_2:]['Close'].mean()
-	return ((mean_2 - mean_1) / mean_2) * 100
+	return round(((mean_2 - mean_1) / mean_2) * 100, 2)
 
 
 # test_df = pd.DataFrame({'Close': [3,2,2,2,2]})
@@ -63,6 +63,13 @@ def highest_percentage_difference(symbols):
 
 	Returns dataframe ranked in descending order of
 	percentage difference.
+
+	Example 1:
+		df = highest_percentage_difference(['BARC.L', 'BA.L'])
+
+	Example 2:
+		ftse100_symbols = yahoo_symbols('../data/symbols/FTSE 100.txt')
+		df = highest_percentage_difference(ftse100_symbols)
 
 	"""
 	print('Strategy: Highest Percentage Difference')
@@ -81,9 +88,7 @@ def highest_percentage_difference(symbols):
 			download_data([symbol])
 
 		df = pd.read_csv(fp)
-		
 		means_diff_percent = percentage_difference(df, days_1=5, days_2=200)
-			
 		df = df.iloc[-1:]
 		df['symbol'] = symbol
 		df['means_diff_percent'] = means_diff_percent
@@ -93,14 +98,19 @@ def highest_percentage_difference(symbols):
 	return result
 
 
+
 def export_report(strategy_function):
 	date_now = datetime.now().strftime('%Y-%m-%d')
 
 	ftse100_symbols = yahoo_symbols('../data/symbols/FTSE 100.txt')
-	strategy_function(ftse100_symbols).to_excel('../data/aggregated/FTSE100_report_{}.xlsx'.format(date_now))
+	df = strategy_function(ftse100_symbols)
+	df = merge_company_names(df)
+	df.to_excel('../data/aggregated/FTSE100_report_{}.xlsx'.format(date_now), index=False)
 
 	ftse250_symbols = yahoo_symbols('../data/symbols/FTSE 250.txt')
-	strategy_function(ftse250_symbols).to_excel('../data/aggregated/FTSE250_report_{}.xlsx'.format(date_now))
+	df = strategy_function(ftse250_symbols)
+	df = merge_company_names(df)
+	df.to_excel('../data/aggregated/FTSE250_report_{}.xlsx'.format(date_now), index=False)
 
 
 if __name__ == '__main__':

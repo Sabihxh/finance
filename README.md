@@ -1,12 +1,14 @@
 # Tridex
 Algorithm consisting of multiple mid and long term trading strategies that shortlists the best companies to invest in on FTSE 350 index, on a given day.
 
-The jupyter notebook `strategies.ipynb` contains the mock up of trading strategies. 
+The jupyter notebook `tridex/strategies.ipynb` contains the mock up of trading strategies. 
 
-The `data_stocks` directory contains data for all FTSE 350 companies starting from 2014-01-01.
+The `data/stocks` directory contains data for all FTSE 350 companies starting from 2014-01-01.
+
 
 ### Trading Strategies
 See tridex/strategies.ipynb
+
 
 ### To do:
 - Use google storage instead of csv files
@@ -17,3 +19,5 @@ See tridex/strategies.ipynb
 - Write tests
 
 
+### Reserach
+- How long does it take on average for long term (~200 days) and short term (50 days) moving averages to crossover. Find the average using all stocks in FTSE 350 over the entire history. 
