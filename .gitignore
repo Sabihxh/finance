@@ -2,3 +2,5 @@
 /misc/
 /data_stocks_backup/
 /data/aggregated
+venv
+virtualenv

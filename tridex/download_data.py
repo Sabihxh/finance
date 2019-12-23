@@ -19,12 +19,21 @@ ftse100_symbols = yahoo_symbols('../data/symbols/FTSE 100.txt')
 ftse250_symbols = yahoo_symbols('../data/symbols/FTSE 250.txt')
 
 
-def download(symbol, output_fp):
+def get_data(symbol):
+	"""
+	returns df
+	"""
+	return DataReader(name=symbol, data_source=DATA_SOURCE, start=INITIAL_DATE, access_key=ACCESS_KEY)
+	
+
+
+def data_to_bigquery(symbol):
 	"""
 	Downloads data and saves in csv format.
 	"""
-	df = DataReader(name=symbol, data_source=DATA_SOURCE, start=INITIAL_DATE, access_key=ACCESS_KEY)
-	df.to_csv(output_fp)
+	df = get_data(symbol)
+	
+
 
 
 def download_data(symbols):
@@ -55,52 +64,8 @@ def download_data(symbols):
 			os.makedirs(output_dir)
 
 		output_fp = os.path.join(output_dir, symbol + '.csv')
-		download(symbol, output_fp)
+		get_data(symbol).to_csv(output_fp)
 
-
-def update(csv):
-	"""
-	Updates csv file. Checks the last date
-	in csv files and adds new records until the current date.
-	"""
-	df = pd.read_csv(csv, index_col='Date')
-	df.index = pd.to_datetime(df.index, format='%Y-%m-%d')
-
-	# Get the last date in df and add 1 day
-	start_date = df.index[-1] + pd.DateOffset(1)
-	
-	if start_date.strftime('%Y%m%d') != datetime.now().strftime('%Y%m%d'):
-		symbol = extract_symbol(csv)
-		try:
-			new_data_df = DataReader(name=symbol, data_source=DATA_SOURCE, start=start_date, access_key=ACCESS_KEY)
-			df = pd.concat([df, new_data_df], axis=0)
-			df.to_csv(csv)
-		except Exception as e:
-			print('Could not update...')
-			print(e)
-
-
-def update_data(market='all'):
-	"""
-	Uses update function to update every single
-	csv file in FTSE100 and FTSE250 directory.
-	"""
-	# Name of directories to update
-	if market == 'all':
-		update_dirs = ['FTSE100', 'FTSE250']
-	else:
-		update_dirs = [market]
-
-	for _dir in update_dirs:
-		dir_path = '../data/stocks/{}'.format(_dir)
-		filepaths = ['{}/{}'.format(dir_path, x) for x in os.listdir(dir_path)]
-		total = len(filepaths)
-
-		print('Updating {} data...'.format(_dir))
-
-		for i, csv in enumerate(filepaths):
-			print('{}/{} >>> {}'.format(i+1, total, extract_symbol(csv)))
-			update(csv)
 
 def main():
 	print('main...')

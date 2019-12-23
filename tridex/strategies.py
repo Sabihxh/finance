@@ -99,23 +99,6 @@ def highest_percentage_difference(symbols):
 
 
 
-def export_report(strategy_function):
-	date_now = datetime.now().strftime('%Y-%m-%d')
-
-	ftse100_symbols = yahoo_symbols('../data/symbols/FTSE 100.txt')
-	df = strategy_function(ftse100_symbols)
-	df = merge_company_names(df)
-	df.to_excel('../data/aggregated/FTSE100_report_{}.xlsx'.format(date_now), index=False)
-
-	ftse250_symbols = yahoo_symbols('../data/symbols/FTSE 250.txt')
-	df = strategy_function(ftse250_symbols)
-	df = merge_company_names(df)
-	df.to_excel('../data/aggregated/FTSE250_report_{}.xlsx'.format(date_now), index=False)
-
-
-if __name__ == '__main__':
-	export_report(highest_percentage_difference)
-
 
 
 
