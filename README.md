@@ -11,7 +11,7 @@ See tridex/strategies.ipynb
 
 
 ### To do:
-- Use google storage instead of csv files
+- Move data to BigQuery
 - Move trading strategies from notebook to .py module
 - Get data going back as early as possible for all stocks instead of 2014-01-01
 - Implement more strategies (use zipline?)
