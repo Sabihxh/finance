@@ -5,6 +5,11 @@ import pandas as pd
 from globals import index_url_suffix
 
 
+def get_high_low_difference(s1, s2):
+	return round(((s1 - s2)/s2) * 100, 2)
+
+
+
 def lse_to_yahoo(symbol):
 	"""
 	Converts ticker symbol from london stock exhange

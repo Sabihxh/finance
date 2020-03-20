@@ -64,7 +64,10 @@ def download_data(symbols):
 			os.makedirs(output_dir)
 
 		output_fp = os.path.join(output_dir, symbol + '.csv')
-		get_data(symbol).to_csv(output_fp)
+		try:
+			get_data(symbol).to_csv(output_fp)
+		except:
+			print('cannot get data...')
 
 
 def main():
