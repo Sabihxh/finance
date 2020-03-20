@@ -21,6 +21,6 @@ def export_report(strategy_function, index='ftse100'):
 
 
 if __name__ == '__main__':
-	index = sys.argv[1]
-	if index in ['ftse100', 'ftse250']:
-		export_report(highest_percentage_difference, index)
+	# index = sys.argv[1]
+	# if index in ['ftse100', 'ftse250']:
+	export_report(highest_percentage_difference, 'ftse100')

@@ -4,3 +4,5 @@
 /data/aggregated
 venv
 virtualenv
+
+__pycache__
