@@ -1,5 +1,5 @@
 # Tridex
-Algorithm consisting of multiple mid and long term trading strategies that shortlists the best companies to invest in on FTSE 350 index, on a given day.
+Algorithm consisting of multiple mid and long term strategies that shortlists the best companies to invest in on FTSE 350 index, on a given day.
 
 The jupyter notebook `tridex/strategies.ipynb` contains the mock up of trading strategies. 
 
